@@ -27,7 +27,11 @@ spec:
       serviceAccountName: {{ include "roboshop.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-
+      initContainers:
+        - name: parameters-pull
+          image: 086083061026.dkr.ecr.us-east-1.amazonaws.com/parameter-pull
+          image
+          command: [ 'sh', '-c', "until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done" ]
 
       containers:
         - name: {{ .Chart.Name }}
