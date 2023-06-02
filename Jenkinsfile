@@ -23,7 +23,7 @@ pipeline {
     }
     stage ('Helms Deploy') {
       steps {
-        sh 'helm upgrade -i ${component} . -f APP/values.yaml --set-string image.tag=${app_version}'
+        sh 'helm upgrade -i ${component} ./HELM -f APP/values.yaml --set-string image.tag=${app_version}'
       }
     }
 
