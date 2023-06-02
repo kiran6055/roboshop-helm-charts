@@ -20,7 +20,7 @@ pipeline {
     }
     stage ('Helms file') {
       steps {
-        sh 'helm upgrade -i cart . -f APP/values.yaml'
+        sh 'helm upgrade -i cart . -f APP/values.yaml --set-string image.tag=${app_version}'
       }
     }
 
