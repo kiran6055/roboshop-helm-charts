@@ -20,7 +20,7 @@ pipeline {
     }
     stage ('Helms file') {
       steps {
-        sh 'find .'
+        sh 'helm upgrade -i cart . -f APP/values.yaml'
       }
     }
 
