@@ -30,9 +30,12 @@ spec:
       initContainers:
         - name: parameters-pull
           image: 086083061026.dkr.ecr.us-east-1.amazonaws.com/parameter-pull
-          image
-          command: [ 'sh', '-c', "until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done" ]
-
+          imagePullPolicy: Always
+          env:
+            - name: env
+              value: {{ .Values.env }}
+            - name: component
+              value: {{ .Values.component }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
