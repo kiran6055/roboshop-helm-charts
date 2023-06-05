@@ -1,0 +1,22 @@
+{{- if .Values.schema.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: { { include "roboshop.fullname" . } }
+  labels:
+    { { - include "roboshop.labels" . | nindent 4 } }
+spec:
+  template:
+    spec:
+      containers:
+        - name: schema
+          image: 086083061026.dkr.ecr.us-east-1.amazonaws.com/schema
+          env:
+            - name: SCHEMA_TYPE
+              value: {{ .Values.schema.schema_type }}
+            - name: COMPONENT
+              value: {{ .Values.COMPONENT}}
+      restartPolicy: Never
+  backoffLimit: 4
+
+{{- end }}

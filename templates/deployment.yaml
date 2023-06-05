@@ -32,10 +32,10 @@ spec:
           image: 086083061026.dkr.ecr.us-east-1.amazonaws.com/parameter-pull
           imagePullPolicy: Always
           env:
-            - name: env
+            - name: ENV
               value: {{ .Values.env }}
-            - name: component
-              value: {{ .Values.component }}
+            - name: COMPONENT
+              value: {{ .Values.COMPONENT }}
       volumes:
         - name: parameter-store
           emptyDir:
