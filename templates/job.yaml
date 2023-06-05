@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: { { include "roboshop.fullname" . } }
+  name: {{ include "roboshop.fullname" . }}
   labels:
-    { { - include "roboshop.labels" . | nindent 4 } }
+    {{ - include "roboshop.labels" . | nindent 4 }}
 spec:
   template:
     spec:
@@ -18,9 +18,9 @@ spec:
           imagePullPolicy: Always
           env:
             - name: ENV
-              value: { { .Values.ENV } }
+              value: {{ .Values.ENV }}
             - name: COMPONENT
-              value: { { .Values.COMPONENT } }
+              value: {{ .Values.COMPONENT }}
       containers:
         - name: schema
           image: 086083061026.dkr.ecr.us-east-1.amazonaws.com/schema
