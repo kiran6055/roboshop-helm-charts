@@ -33,7 +33,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: ENV
-              value: {{ .Values.env }}
+              value: {{ .Values.ENV }}
             - name: COMPONENT
               value: {{ .Values.COMPONENT }}
       volumes:

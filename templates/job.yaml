@@ -8,6 +8,19 @@ metadata:
 spec:
   template:
     spec:
+      volumes:
+        - name: parameter-store
+          emptyDir:
+            sizeLimit: 5Mi
+      initContainers:
+        - name: parameters-pull
+          image: 086083061026.dkr.ecr.us-east-1.amazonaws.com/parameter-pull
+          imagePullPolicy: Always
+          env:
+            - name: ENV
+              value: { { .Values.ENV } }
+            - name: COMPONENT
+              value: { { .Values.COMPONENT } }
       containers:
         - name: schema
           image: 086083061026.dkr.ecr.us-east-1.amazonaws.com/schema
@@ -16,6 +29,9 @@ spec:
               value: {{ .Values.schema.schema_type }}
             - name: COMPONENT
               value: {{ .Values.COMPONENT}}
+          volumeMounts:
+            - mountPath: /parameter-store
+              name: parameter-store
       restartPolicy: Never
   backoffLimit: 4
 
