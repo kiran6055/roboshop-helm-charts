@@ -33,6 +33,6 @@ spec:
             - mountPath: /parameter-store
               name: parameter-store
       restartPolicy: Never
-  backoffLimit: 4
+  backoffLimit: 1
 
 {{- end }}
