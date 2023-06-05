@@ -4,8 +4,8 @@ pipeline {
     label 'JenkinsAgent'
   }
   parameters {
-    string(name: 'component', defaultValue: '', description: 'Enter component')
-    string(name: 'app_version', defaultValue: '', description: 'app_version')
+    string(name: 'COMPONENT', defaultValue: '', description: 'Enter COMPONENT')
+    string(name: 'APP_VERSION', defaultValue: '', description: 'APP_VERSION')
 
   }
   stages {
@@ -13,7 +13,7 @@ pipeline {
     stage ('Get APP File') {
       steps {
         dir('APP') {
-          git branch: 'main', url: 'https://github.com/kiran6055/${component}.git'
+          git branch: 'main', url: 'https://github.com/kiran6055/${COMPONENT}.git'
         }
         dir('HELM') {
           git branch: 'main', url: 'https://github.com/kiran6055/roboshop-helm-charts'
@@ -23,7 +23,7 @@ pipeline {
     }
     stage ('Helms Deploy') {
       steps {
-        sh 'helm upgrade -i ${component} ./HELM -f APP/values.yaml --set-string image.tag="${app_version},env=prod,component=${component}"'
+        sh 'helm upgrade -i ${COMPONENT} ./HELM -f APP/values.yaml --set-string image.tag="${APP_VERSION},env=prod,COMPONENT=${COMPONENT}"'
       }
     }
 
