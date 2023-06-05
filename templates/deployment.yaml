@@ -36,12 +36,20 @@ spec:
               value: {{ .Values.env }}
             - name: component
               value: {{ .Values.component }}
+      volumes:
+        - name: parameter-store
+          emptyDir:
+            sizeLimit: 5Mi
+
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - mountPath: /parameter-store
+              name: parameter-store
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
