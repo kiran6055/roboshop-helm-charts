@@ -13,7 +13,7 @@ pipeline {
     stage ('Get APP File') {
       steps {
         dir('APP') {
-          git branch: 'main', url: 'https://github.com/kiran6055/$COMPONENT.git'
+          git branch: 'main', url: 'https://github.com/kiran6055/${COMPONENT}.git'
         }
         dir('HELM') {
           git branch: 'main', url: 'https://github.com/kiran6055/roboshop-helm-charts'
