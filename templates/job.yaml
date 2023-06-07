@@ -9,7 +9,7 @@ metadata:
   annotations:
     eks.amazonaws.com/role-arn: arn:aws:iam::086083061026:role/parameter-store-role-with-oidc
     "helm.sh/hook": pre-install
-    {{- toYaml . | nindent 4 }}
+  {{- toYaml . | nindent 4 }}
 
 spec:
   template:
