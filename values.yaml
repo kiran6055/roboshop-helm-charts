@@ -19,6 +19,7 @@ serviceAccount:
   create: true
   # Annotations to add to the service account
   annotations: {}
+  eks.amazonaws.com/role-arn: arn:aws:iam::086083061026:role/parameter-store-role-with-oidc
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
