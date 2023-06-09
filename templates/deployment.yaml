@@ -33,11 +33,14 @@ spec:
         - name: parameters-pull
           image: 086083061026.dkr.ecr.us-east-1.amazonaws.com/parameters-pull
           imagePullPolicy: Always
+          volumeMounts:
+          - mountPath: /parameter-store
+            name: parameter-store
           env:
             - name: ENV
-              value: {{ .Values.ENV }}
+              value: "{{ .Values.ENV }}"
             - name: COMPONENT
-              value: {{ .Values.COMPONENT }}
+              value: "{{ .Values.COMPONENT }}"
       {{- end }}
 
       volumes:
@@ -46,14 +49,14 @@ spec:
             sizeLimit: 5Mi
 
       containers:
-        - name: {{ .Chart.Name }}
+        - name: "{{ .Values.COMPONENT }}"
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            - mountPath: /parameter-store
-              name: parameter-store
+          - mountPath: /parameter-store
+            name: parameter-store
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
