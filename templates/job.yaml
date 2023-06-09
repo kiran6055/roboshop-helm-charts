@@ -20,6 +20,9 @@ spec:
         - name: parameters-pull
           image: 086083061026.dkr.ecr.us-east-1.amazonaws.com/parameter-pull
           imagePullPolicy: Always
+          volumeMounts:
+          - mountPath: /parameter-store
+            name: parameter-store
           env:
             - name: ENV
               value: {{ .Values.ENV }}
@@ -28,14 +31,15 @@ spec:
       containers:
         - name: schema
           image: 086083061026.dkr.ecr.us-east-1.amazonaws.com/schema
+          imagePullPolicy: Always
           env:
             - name: SCHEMA_TYPE
               value: {{ .Values.schema.schema_type }}
             - name: COMPONENT
               value: {{ .Values.COMPONENT}}
           volumeMounts:
-            - mountPath: /parameter-store
-              name: parameter-store
+          - mountPath: /parameter-store
+            name: parameter-store
       restartPolicy: Never
   backoffLimit: 1
 
